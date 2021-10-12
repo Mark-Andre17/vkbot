@@ -1,6 +1,7 @@
 import requests
+from get_token import get_token
 
-TOKEN_FOR_VKUSER = ''
+TOKEN_FOR_VKUSER = get_token()
 
 
 class VkUser:
@@ -28,17 +29,17 @@ class VkUser:
         candidate_id_list = []
         for items in get_user_info['response']:
             city_id = items.get('city')['id']
-        users_search_url = self.url + 'users.search'
-        user_params = {
-            'count': 10,
-            'sex': sex,
-            'city': city_id,
-            'status': status,
-            'age_from': age_from,
-            'age_to': age_to
-        }
-        response = requests.get(users_search_url, params={**self.params, **user_params}).json()
-        candidate_id_list = [item.get('id') for item in response['response']['items']]
+            users_search_url = self.url + 'users.search'
+            user_params = {
+                'count': 10,
+                'sex': sex,
+                'city': city_id,
+                'status': status,
+                'age_from': age_from,
+                'age_to': age_to
+            }
+            response = requests.get(users_search_url, params={**self.params, **user_params}).json()
+            candidate_id_list = [item.get('id') for item in response['response']['items']]
         return candidate_id_list
 
     def get_photos(self, candidate_id):
@@ -77,6 +78,7 @@ class VkUser:
 
     @staticmethod
     def messages_send(get_photos, candidate_id):
+        global attachments
         if len(get_photos) == 3:
             photo_1 = f'photo{candidate_id}_{get_photos[0][1]}'
             photo_2 = f'photo{candidate_id}_{get_photos[1][1]}'

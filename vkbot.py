@@ -66,7 +66,7 @@ def speak_vk_bot():
                                                                                   'Вы ввели неверную цифру')
                                                                     else:
                                                                         write_msg(event.user_id, 'Поехали!')
-                                                                        vk_client = VkUser(TOKEN, '5.130')
+                                                                        vk_client = VkUser(TOKEN, '5.52')
                                                                         get_user_info = vk_client.get_user_info(
                                                                             event.user_id)
                                                                         users_search = vk_client.users_search(
